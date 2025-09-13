@@ -251,4 +251,8 @@ Pour toute question ou suggestion, ouvrez une issue sur GitHub.
 
 ---
 
-[![discord](https://discordapp.com/api/guilds/624931585715601428/embed.png?style=banner3)][discord]
+<p align="center">
+    <a href="http://discord.phyloria.fr/" target="_blank">
+        <img src="https://img.shields.io/badge/Discord-5865F2?logo=discord&logoColor=white&style=for-the-badge" alt="Discord">
+    </a>
+</p>
