@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
     Dialog,
     DialogContent,
@@ -22,9 +23,9 @@ export default function Parameters() {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <button className="absolute top-4 right-4 p-2 rounded-md hover:bg-secondary/80 transition-colors border-0 bg-transparent text-foreground">
+                <Button className="absolute top-4 right-4 p-2 rounded-md hover:bg-secondary/80 transition-colors border-0 bg-transparent text-foreground">
                     <CogIcon className="h-5 w-5" />
-                </button>
+                </Button>
             </DialogTrigger>
 
             <DialogContent className="min-w-[80vw] min-h-[80vh] p-0">

@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
@@ -5,6 +6,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { ACCOUNT } from "@/electron/scripts/ipcconstants";
 import microsoftIcon from "@/src/assets/microsoft.svg";
 import React, { useEffect, useState } from "react";
@@ -61,7 +63,7 @@ const AccountParameters: React.FC = () => {
                             />
                             Compte Microsoft
                         </span>
-                        <hr className="border-t border-foreground my-2" />
+                        <Separator />
                         <div className="relative group">
                             <div className="flex items-center gap-4 bg-muted rounded-lg p-4">
                                 <img
@@ -78,12 +80,12 @@ const AccountParameters: React.FC = () => {
                                     </div>
                                 </div>
                             </div>
-                            <button
+                            <Button
                                 onClick={handleLogout}
                                 className="absolute bottom-2 right-2 bg-destructive px-4 py-2 rounded-md opacity-0 group-hover:opacity-100 transition-opacity hover:bg-tertiary hover:cursor-pointer"
                             >
                                 Se déconnecter
-                            </button>
+                            </Button>
                         </div>
                     </div>
                 )}

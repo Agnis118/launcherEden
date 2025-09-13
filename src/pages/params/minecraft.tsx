@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
@@ -100,13 +101,13 @@ const MinecraftParameters: React.FC = () => {
                 </div>
 
                 <div className="pt-4 flex justify-end">
-                    <button
+                    <Button
                         onClick={handleSave}
                         className="flex items-center gap-2 cursor-pointer bg-primary px-4 py-2 rounded-md text-primary-foreground hover:bg-secondary transition-all"
                     >
                         <SaveIcon className="h-4 w-4" />
                         Sauvegarder
-                    </button>
+                    </Button>
                 </div>
             </CardContent>
         </Card>

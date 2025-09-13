@@ -177,7 +177,7 @@ const Login: React.FC = () => {
             setIsLoading(false);
             setLoginState(LoginState.IDLE);
         }
-    }, [isLoading, loginState, handleError, navigate]);
+    }, [isLoading, loginState, handleError, handleSuccess, navigate]);
 
     // Setup des listeners IPC
     // Les listeners ne sont plus nécessaires, tout est géré via invoke/await

@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { GAME } from "@/electron/scripts/ipcconstants";
 import { useGame } from "@/src/context/GameContextObject";
@@ -54,7 +55,7 @@ export default function LaunchPanel() {
     };
 
     return (
-        <button
+        <Button
             onClick={loading ? undefined : handleLaunch}
             className="flex-1 flex flex-col items-start justify-center px-8 py-5 text-left transition-all"
             disabled={loading}
@@ -72,6 +73,6 @@ export default function LaunchPanel() {
                     />
                 </div>
             )}
-        </button>
+        </Button>
     );
 }
