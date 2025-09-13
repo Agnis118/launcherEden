@@ -4,7 +4,7 @@ on:
     push:
         branches:
             - master
-            - dev
+            - dev # pour tester sur la branche dev
 
 jobs:
     build:
@@ -12,6 +12,8 @@ jobs:
         strategy:
             matrix:
                 os: [windows-latest, ubuntu-latest, macos-latest]
+
+        timeout-minutes: 60
 
         steps:
             # 1️⃣ Checkout
@@ -22,30 +24,32 @@ jobs:
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
-                  node-version: 18
+                  node-version: 22 # Evite EBADENGINE
 
             # 3️⃣ Install dependencies
             - name: Install dependencies
-              run: npm install
+              run: npm install --no-progress --force
+              shell: bash
 
             # 4️⃣ Get version from package.json
             - name: Get package version
               id: vars
               run: echo "VERSION=$(node -p \"require('./package.json').version\")" >> $GITHUB_ENV
 
-            # 5️⃣ Create tag if not exists (only once, on first job)
+            # 5️⃣ Create tag if not exists (Ubuntu job only)
             - name: Create tag if not exists
-              if: matrix.os == 'ubuntu-latest' # on choisit un OS pour créer le tag
+              if: matrix.os == 'ubuntu-latest'
               run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
                   if git rev-parse "v$VERSION" >/dev/null 2>&1; then
                     echo "Tag v$VERSION already exists"
                   else
-                    git config user.name "github-actions[bot]"
-                    git config user.email "github-actions[bot]@users.noreply.github.com"
                     git tag -a "v$VERSION" -m "Release $VERSION"
                     git push origin "v$VERSION"
+                  fi
 
-            # 6️⃣ Create GitHub release (only once, on first job)
+            # 6️⃣ Create GitHub release (Ubuntu job only)
             - name: Create release
               if: matrix.os == 'ubuntu-latest'
               uses: actions/create-release@v1
@@ -54,25 +58,26 @@ jobs:
                   tag_name: "v${{ env.VERSION }}"
                   release_name: "v${{ env.VERSION }}"
                   draft: false
-                  prerelease: true
+                  prerelease: ${{ github.ref == 'refs/heads/dev' }} # true si branche dev
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-            # 7️⃣ Build selon l'OS
+            # 7️⃣ Build project selon OS
             - name: Build project
               run: |
-                  echo "Building version $VERSION for ${{ matrix.os }}"
+                  echo "Building version ${{ env.VERSION }} for ${{ matrix.os }}"
                   if [ "${{ matrix.os }}" == "windows-latest" ]; then
                     npm run dist:win
-                    mv dist/*.exe dist/PhyloriaLauncher-win-$VERSION.exe
+                    mv dist/*.exe dist/PhyloriaLauncher-win-${{ env.VERSION }}.exe
                   elif [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
                     npm run dist:linux
-                    mv dist/*.AppImage dist/PhyloriaLauncher-linux-$VERSION.AppImage
+                    mv dist/*.AppImage dist/PhyloriaLauncher-linux-${{ env.VERSION }}.AppImage
                   elif [ "${{ matrix.os }}" == "macos-latest" ]; then
                     npm run dist:mac
-                    mv dist/*.dmg dist/PhyloriaLauncher-mac-$VERSION.dmg
+                    mv dist/*.dmg dist/PhyloriaLauncher-mac-${{ env.VERSION }}.dmg
+              shell: bash
 
-            # 8️⃣ Upload des assets (chaque job upload son fichier)
+            # 8️⃣ Upload release asset
             - name: Upload release asset
               uses: softprops/action-gh-release@v2
               with:
