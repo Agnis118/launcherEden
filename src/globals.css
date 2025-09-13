@@ -1,0 +1,226 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@custom-variant dark (&:is(.dark *));
+
+html,
+body {
+    background-color: #00152a; /* Votre couleur de fond principale */
+}
+
+@theme inline {
+    --color-background: var(--background);
+    --color-background-secondary: var(--background-secondary);
+    --color-foreground: var(--foreground);
+    --color-done: var(--done);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-tertiary: var(--tertiary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-launch: var(--secondary-launch);
+    --color-tertiary-launch: var(--tertiary-launch);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+    /* Configuration de base */
+    --radius: 0.625rem;
+
+    /* Mode clair (fallback) - Adapté à votre thème sombre */
+    --background: oklch(
+        0.1914 0.052 248.39
+    ); /* Votre couleur de fond principale */
+    --background-secondary: oklch(
+        0.4258 0.0731 254.94
+    ); /* Votre couleur secondaire */
+    --foreground: oklch(0.9881 0 0); /* Blanc pour le texte principal */
+
+    /* Cards et popovers - tons sombres cohérents */
+    --card: oklch(0.208 0.042 265.755); /* Sombre bleuté */
+    --card-foreground: oklch(0.984 0.003 247.858); /* Blanc cassé */
+    --popover: oklch(0.208 0.042 265.755);
+    --popover-foreground: oklch(0.984 0.003 247.858);
+
+    /* Couleurs primaires - basées sur vos couleurs */
+    --primary: oklch(0.9881 0 0); /* Votre blanc principal */
+    --primary-foreground: oklch(
+        0.1914 0.052 248.39
+    ); /* Votre fond pour contraste */
+
+    /* Couleurs secondaires - vos couleurs personnalisées */
+    --secondary: oklch(0.8594 0.1746 91.3); /* Votre secondary */
+    --secondary-foreground: oklch(0.1914 0.052 248.39);
+    --tertiary: oklch(0.5991 0.1938 37.96); /* Votre tertiary */
+    --secondary-launch: oklch(0.476 0.2804 264.31); /* Votre secondary-launch */
+    --tertiary-launch: oklch(0.7415 0.1469 233.85); /* Votre tertiary-launch */
+
+    /* États spéciaux */
+    --done: oklch(70.676% 0.20394 141.864); /* Votre couleur done */
+    --destructive: oklch(0.577 0.245 27.325); /* Rouge pour erreurs */
+    --destructive-foreground: oklch(0.984 0.003 247.858);
+
+    /* Éléments UI - adaptés au thème sombre */
+    --muted: oklch(0.279 0.041 260.031); /* Gris-bleu sombre */
+    --muted-foreground: oklch(0.704 0.04 256.788); /* Gris moyen */
+    --accent: oklch(0.279 0.041 260.031);
+    --accent-foreground: oklch(0.984 0.003 247.858);
+
+    /* Bordures et inputs */
+    --border: oklch(1 0 0 / 15%); /* Blanc semi-transparent */
+    --input: oklch(1 0 0 / 10%); /* Fond input semi-transparent */
+    --ring: oklch(0.551 0.027 264.364); /* Focus ring */
+
+    /* Charts - palette cohérente */
+    --chart-1: oklch(0.8594 0.1746 91.3); /* Basé sur votre secondary */
+    --chart-2: oklch(0.5991 0.1938 37.96); /* Basé sur votre tertiary */
+    --chart-3: oklch(0.476 0.2804 264.31); /* Basé sur secondary-launch */
+    --chart-4: oklch(0.7415 0.1469 233.85); /* Basé sur tertiary-launch */
+    --chart-5: oklch(70.676% 0.20394 141.864); /* Basé sur done */
+
+    /* Sidebar - tons sombres cohérents */
+    --sidebar: oklch(0.208 0.042 265.755); /* Fond sidebar sombre */
+    --sidebar-foreground: oklch(0.984 0.003 247.858); /* Texte sidebar */
+    --sidebar-primary: oklch(
+        0.8594 0.1746 91.3
+    ); /* Accent sidebar (votre secondary) */
+    --sidebar-primary-foreground: oklch(0.1914 0.052 248.39);
+    --sidebar-accent: oklch(0.279 0.041 260.031); /* Hover states */
+    --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
+    --sidebar-border: oklch(1 0 0 / 10%); /* Bordures subtiles */
+    --sidebar-ring: oklch(0.551 0.027 264.364);
+}
+
+/* Mode sombre (principal) - Votre thème actuel amélioré */
+.dark {
+    /* Fond principal - vos couleurs */
+    --background: oklch(0.1914 0.052 248.39);
+    --background-secondary: oklch(0.4258 0.0731 254.94);
+    --foreground: oklch(0.9881 0 0);
+
+    /* Cards et popovers - plus sombres pour la hiérarchie */
+    --card: oklch(0.208 0.042 265.755);
+    --card-foreground: oklch(0.984 0.003 247.858);
+    --popover: oklch(0.208 0.042 265.755);
+    --popover-foreground: oklch(0.984 0.003 247.858);
+
+    /* Couleurs primaires */
+    --primary: oklch(0.9881 0 0);
+    --primary-foreground: oklch(0.1914 0.052 248.39);
+
+    /* Couleurs secondaires - vos couleurs personnalisées */
+    --secondary: oklch(0.8594 0.1746 91.3);
+    --secondary-foreground: oklch(0.1914 0.052 248.39);
+    --tertiary: oklch(0.5991 0.1938 37.96);
+    --secondary-launch: oklch(0.476 0.2804 264.31);
+    --tertiary-launch: oklch(0.7415 0.1469 233.85);
+
+    /* États et feedbacks */
+    --done: oklch(70.676% 0.20394 141.864);
+    --destructive: oklch(0.704 0.191 22.216);
+    --destructive-foreground: oklch(0.984 0.003 247.858);
+
+    /* Éléments muted */
+    --muted: oklch(0.279 0.041 260.031);
+    --muted-foreground: oklch(0.704 0.04 256.788);
+    --accent: oklch(0.279 0.041 260.031);
+    --accent-foreground: oklch(0.984 0.003 247.858);
+
+    /* Bordures et inputs - semi-transparents pour s'adapter */
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 5%);
+    --ring: oklch(0.8594 0.1746 91.3); /* Ring basé sur votre secondary */
+
+    /* Charts - palette sombre cohérente */
+    --chart-1: oklch(0.8594 0.1746 91.3);
+    --chart-2: oklch(0.5991 0.1938 37.96);
+    --chart-3: oklch(0.476 0.2804 264.31);
+    --chart-4: oklch(0.7415 0.1469 233.85);
+    --chart-5: oklch(70.676% 0.20394 141.864);
+
+    /* Sidebar - intégrée à votre thème */
+    --sidebar: oklch(0.208 0.042 265.755);
+    --sidebar-foreground: oklch(0.984 0.003 247.858);
+    --sidebar-primary: oklch(
+        0.8594 0.1746 91.3
+    ); /* Votre secondary pour les accents */
+    --sidebar-primary-foreground: oklch(0.1914 0.052 248.39);
+    --sidebar-accent: oklch(0.279 0.041 260.031);
+    --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
+    --sidebar-border: oklch(1 0 0 / 8%);
+    --sidebar-ring: oklch(0.8594 0.1746 91.3);
+}
+
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+    body {
+        @apply bg-background text-foreground;
+        font-feature-settings: "rlig" 1, "calt" 1;
+    }
+
+    /* Améliorations pour le thème sombre */
+    input,
+    textarea,
+    select {
+        @apply bg-input/50 border-border/50;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+        @apply bg-input border-ring;
+    }
+}
+
+/* Styles personnalisés pour votre thème */
+.phyloria-gradient {
+    background: linear-gradient(
+        135deg,
+        oklch(0.1914 0.052 248.39) 0%,
+        oklch(0.4258 0.0731 254.94) 100%
+    );
+}
+
+.phyloria-card {
+    @apply bg-card/80 backdrop-blur-sm border-border/20;
+}
+
+.phyloria-button-primary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/90;
+}
+
+.phyloria-button-tertiary {
+    @apply bg-tertiary text-primary hover:bg-tertiary/90;
+}
