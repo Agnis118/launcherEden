@@ -1,18 +1,70 @@
-# Phyloria Launcher
+<p align="center">
+  <img src="./src/assets/icon.png" width="150px" height="150px" alt="Phyloria Launcher Logo">
+</p>
 
-Phyloria Launcher est un launcher Minecraft moderne, open-source, développé avec React, TypeScript, Electron et Vite. Il propose une expérience utilisateur fluide, une authentification Microsoft/Mojang robuste, la gestion des serveurs, des comptes et des modpacks, ainsi qu'une interface responsive.
+<h1 align="center">Phyloria Launcher</h1>
+<em><h5 align="center">Un launcher Minecraft moderne, open-source</h5></em>
+
+<p align="center">
+  <img src="https://img.shields.io/github/actions/workflow/status/Alpha3608/Phyloria_Launcher/build.yml?branch=master&style=for-the-badge" alt="gh actions">
+  <img src="https://img.shields.io/github/downloads/Alpha3608/Phyloria_Launcher/total.svg?style=for-the-badge" alt="downloads">
+  <img src="https://forthebadge.com/images/badges/made-with-typescript.svg" height="28px" alt="typescript">
+</p>
+
+<p align="center">
+  Lancez Minecraft, gérez vos serveurs et modpacks sans vous soucier de l'installation de Java, Forge ou autres mods. Phyloria s'occupe de tout pour vous.
+</p>
 
 > **Ce projet est basé sur [HeliosLauncher](https://github.com/dscalzi/HeliosLauncher).**
 
-## Fonctionnalités principales
+---
 
--   **Authentification Microsoft/Mojang** : Flow sécurisé, gestion des erreurs et du rate limiting côté backend.
--   **Gestion des serveurs** : Sélection, affichage, synchronisation et lancement de serveurs Minecraft.
--   **Gestion des comptes** : Affichage du pseudo et du skin Minecraft, déconnexion, récupération des informations via IPC.
--   **Lancement du jeu** : Suivi de la progression, détails en temps réel, gestion de la fermeture du jeu.
--   **Interface utilisateur** : UI moderne, composants réutilisables, responsive, feedback utilisateur clair.
--   **Electron** : Intégration native, gestion des fenêtres, communication IPC entre le frontend React et le backend Node.js.
--   **Vite** : Build rapide, HMR, configuration TypeScript et ESLint optimisée.
+## Aperçu
+
+![Screenshot 1](https://i.imgur.com/6o7SmH6.png)
+![Screenshot 2](https://i.imgur.com/x3B34n1.png)
+
+---
+
+## Fonctionnalités
+
+-   🔒 **Gestion complète des comptes**
+    -   Ajoutez plusieurs comptes et basculez facilement entre eux.
+    -   Authentification Microsoft (OAuth 2.0) et Mojang (Yggdrasil) entièrement supportées.
+    -   Les identifiants ne sont jamais stockés ni transmis directement à Mojang.
+-   📂 **Gestion efficace des assets**
+    -   Mises à jour du client dès leur publication.
+    -   Validation des fichiers avant le lancement, réparation automatique des fichiers corrompus.
+-   ☕ **Validation automatique de Java**
+    -   Installation automatique de la bonne version de Java si nécessaire.
+    -   Java n'est pas requis sur votre système pour utiliser le launcher.
+-   📰 **Fil d'actualités intégré**
+-   ⚙️ **Gestion intuitive des paramètres**
+    -   Panneau de contrôle Java, configuration avancée.
+-   🎮 **Gestion des serveurs et modpacks**
+    -   Sélection et synchronisation des serveurs Minecraft.
+    -   Affichage du nombre de joueurs en ligne.
+-   🔄 **Mises à jour automatiques**
+-   📊 **Suivi de la progression du jeu et logs en temps réel**
+-   🖥️ **Interface moderne et responsive**
+    -   Composants réutilisables, feedback utilisateur clair.
+-   ⚡ **Electron + Vite**
+    -   Build rapide, HMR, communication IPC entre React et Node.js.
+
+---
+
+## Téléchargement
+
+Les releases sont disponibles sur [GitHub Releases](https://github.com/Alpha3608/Phyloria_Launcher/releases).
+
+| Plateforme  | Fichier                                     |
+| ----------- | ------------------------------------------- |
+| Windows x64 | `Phyloria-Launcher-setup-VERSION.exe`       |
+| macOS x64   | `Phyloria-Launcher-setup-VERSION-x64.dmg`   |
+| macOS arm64 | `Phyloria-Launcher-setup-VERSION-arm64.dmg` |
+| Linux x64   | `Phyloria-Launcher-setup-VERSION.AppImage`  |
+
+---
 
 ## Structure du projet
 
@@ -38,24 +90,63 @@ phyloria_launcher/
 ├── README.md
 ```
 
-## Installation
+---
+
+## Console
+
+Pour ouvrir la console, utilisez le raccourci suivant :
+
+```console
+ctrl + shift + i
+```
+
+Pour exporter la sortie de la console, faites un clic droit et sélectionnez **Save as..**.
+
+---
+
+## Installation & Développement
+
+### Prérequis
+
+-   [Node.js](https://nodejs.org/en/) v20+
+
+### Installation
 
 ```bash
-# Installe les dépendances
+git clone https://github.com/Alpha3608/Phyloria_Launcher.git
+cd Phyloria_Launcher
 npm install
+```
 
-# Lance le mode développement (Electron + React)
+### Lancement en développement
+
+```bash
 npm run dev
+```
 
-# Build pour la production
+### Build pour la production
+
+```bash
 npm run build
 ```
+
+### Build pour une plateforme spécifique
+
+| Plateforme  | Commande             |
+| ----------- | -------------------- |
+| Windows x64 | `npm run dist:win`   |
+| macOS       | `npm run dist:mac`   |
+| Linux x64   | `npm run dist:linux` |
+
+---
 
 ## Scripts principaux
 
 -   `npm run dev` : Démarre le frontend React (Vite) et le backend Electron en mode développement.
 -   `npm run build` : Build le projet pour la production.
 -   `npm run lint` : Vérifie la qualité du code avec ESLint.
+
+---
 
 ## Configuration ESLint/TypeScript
 
@@ -73,6 +164,8 @@ export default {
 };
 ```
 
+---
+
 ## Contribution
 
 Les contributions sont les bienvenues !
@@ -82,10 +175,23 @@ Les contributions sont les bienvenues !
 -   Commitez vos modifications
 -   Ouvrez une Pull Request
 
+---
+
 ## Licence
 
 Ce projet est sous licence MIT.
 
 ---
 
+## Ressources
+
+-   [Wiki HeliosLauncher](https://github.com/dscalzi/HeliosLauncher/wiki)
+-   [HeliosLauncher](https://github.com/dscalzi/HeliosLauncher)
+-   [Node.js](https://nodejs.org/en/)
+-   [Visual Studio Code](https://code.visualstudio.com/)
+
 Pour toute question ou suggestion, ouvrez une issue sur GitHub.
+
+---
+
+[![discord](https://discordapp.com/api/guilds/624931585715601428/embed.png?style=banner3)][discord]
