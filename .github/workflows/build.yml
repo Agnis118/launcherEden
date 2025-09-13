@@ -66,15 +66,16 @@ jobs:
             - name: Build project
               run: |
                   echo "Building version ${{ env.VERSION }} for ${{ matrix.os }}"
-                  if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+                  if [ "${{ matrix.os }}" == "windows-latest" ]; then
                     npm run dist:win
                     mv dist/*.exe dist/PhyloriaLauncher-win-${{ env.VERSION }}.exe
-                  elif [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
+                  elif [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
                     npm run dist:linux
                     mv dist/*.AppImage dist/PhyloriaLauncher-linux-${{ env.VERSION }}.AppImage
-                  elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
+                  elif [ "${{ matrix.os }}" == "macos-latest" ]; then
                     npm run dist:mac
                     mv dist/*.dmg dist/PhyloriaLauncher-mac-${{ env.VERSION }}.dmg
+                  fi
               shell: bash
 
             # 8️⃣ Upload release asset
