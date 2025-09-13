@@ -11,7 +11,7 @@
         "dev": "vite",
         "build": "tsc && vite build && electron-builder",
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-        "dist": "electron-builder build",
+        "dist": "tsc && vite build && electron-builder build",
         "dist:win": "npm run dist -- -w",
         "dist:mac": "npm run dist -- -m",
         "dist:linux": "npm run dist -- -l",
