@@ -6,8 +6,8 @@
 <em><h5 align="center">Un launcher Minecraft moderne, open-source</h5></em>
 
 <p align="center">
-  <img src="https://img.shields.io/github/actions/workflow/status/Alpha3608/Phyloria_Launcher/build.yml?branch=master&style=for-the-badge" alt="gh actions">
-  <img src="https://img.shields.io/github/downloads/Alpha3608/Phyloria_Launcher/total.svg?style=for-the-badge" alt="downloads">
+  <img src="https://img.shields.io/github/actions/workflow/status/Alpha3608/PhyloriaLauncher/build.yml?branch=master&style=for-the-badge" alt="gh actions">
+  <img src="https://img.shields.io/github/downloads/Alpha3608/PhyloriaLauncher/total.svg?style=for-the-badge" alt="downloads">
   <img src="https://forthebadge.com/images/badges/made-with-typescript.svg" height="28px" alt="typescript">
 </p>
 
@@ -95,11 +95,13 @@ phyloria_launcher/
 
 ## Console
 
-Pour activer la console de développement automatiquement, ajoutez la ligne suivante dans le fichier `electron/main.ts` :
+Pour ouvrir la console, utilisez le raccourci suivant :
 
-```js
-win.webContents.openDevTools();
+```console
+ctrl + shift + i
 ```
+
+Pour exporter la sortie de la console, faites un clic droit et sélectionnez **Save as..**.
 
 ---
 
@@ -182,17 +184,6 @@ export const REMOTE_DISTRO_URL = "https://votre-nouvelle-url/distribution.json";
 
 Enregistrez le fichier et relancez le launcher pour appliquer la modification.
 
-## Documentation distribution.json
-
-Pour plus de détails sur la structure et la configuration du fichier `distribution.json`, consultez le fichier [`docs/distro.md`](./docs/distro.md).  
-Ce document explique comment personnaliser les serveurs, modpacks et paramètres disponibles dans le launcher.
-
--   Structure du fichier
--   Champs obligatoires et optionnels
--   Exemples d'utilisation
-
-Référez-vous à cette documentation pour adapter le launcher à vos besoins.
-
 ## Changer l'AZURE_CLIENT_ID
 
 Pour modifier la valeur de `AZURE_CLIENT_ID`, ouvrez le fichier suivant :
@@ -212,16 +203,7 @@ export const AZURE_CLIENT_ID = "votre-nouveau-client-id";
 
 Enregistrez le fichier et relancez le launcher pour appliquer la modification.
 
-## Documentation MicrosoftAuth
-
-Pour plus d'informations sur l'intégration et la configuration de l'authentification Microsoft, consultez le fichier [`docs/MicrosoftAuth.md`](./docs/MicrosoftAuth.md).  
-Ce document détaille le processus d'authentification OAuth 2.0, la gestion des tokens, et les étapes nécessaires pour configurer votre propre client Azure.
-
--   Comment obtenir un `AZURE_CLIENT_ID`
--   Permissions requises pour l'application Azure
--   Exemple de configuration et bonnes pratiques
-
-## N'hésitez pas à vous référer à cette documentation pour toute question liée à l'authentification Microsoft.
+---
 
 ## Contribution
 
@@ -251,8 +233,4 @@ Pour toute question ou suggestion, ouvrez une issue sur GitHub.
 
 ---
 
-<p align="center">
-    <a href="http://discord.phyloria.fr/" target="_blank">
-        <img src="https://img.shields.io/badge/Discord-5865F2?logo=discord&logoColor=white&style=for-the-badge" alt="Discord">
-    </a>
-</p>
+[![discord](https://discordapp.com/api/guilds/624931585715601428/embed.png?style=banner3)][discord]
