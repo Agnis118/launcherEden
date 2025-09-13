@@ -6,8 +6,8 @@
 <em><h5 align="center">Un launcher Minecraft moderne, open-source</h5></em>
 
 <p align="center">
-  <img src="https://img.shields.io/github/actions/workflow/status/Alpha3608/PhyloriaLauncher/build.yml?branch=master&style=for-the-badge" alt="gh actions">
-  <img src="https://img.shields.io/github/downloads/Alpha3608/PhyloriaLauncher/total.svg?style=for-the-badge" alt="downloads">
+  <img src="https://img.shields.io/github/actions/workflow/status/mathisrto/PhyloriaLauncher/build.yml?branch=master&style=for-the-badge" alt="gh actions">
+  <img src="https://img.shields.io/github/downloads/mathisrto/PhyloriaLauncher/total.svg?style=for-the-badge" alt="downloads">
   <img src="https://forthebadge.com/images/badges/made-with-typescript.svg" height="28px" alt="typescript">
 </p>
 
