@@ -26,9 +26,9 @@ jobs:
               with:
                   node-version: 22 # Evite EBADENGINE
 
-            # 3️⃣ Install dependencies
+            # 3️⃣ Install dependencies (plus stable que npm install --force)
             - name: Install dependencies
-              run: npm install --no-progress --force
+              run: npm ci --no-optional --legacy-peer-deps
               shell: bash
 
             # 4️⃣ Get version from package.json
@@ -42,11 +42,11 @@ jobs:
               run: |
                   git config user.name "github-actions[bot]"
                   git config user.email "github-actions[bot]@users.noreply.github.com"
-                  if git rev-parse "v$VERSION" >/dev/null 2>&1; then
-                    echo "Tag v$VERSION already exists"
+                  if git rev-parse "v${{ env.VERSION }}" >/dev/null 2>&1; then
+                    echo "Tag v${{ env.VERSION }} already exists"
                   else
-                    git tag -a "v$VERSION" -m "Release $VERSION"
-                    git push origin "v$VERSION"
+                    git tag -a "v${{ env.VERSION }}" -m "Release ${{ env.VERSION }}"
+                    git push origin "v${{ env.VERSION }}"
                   fi
 
             # 6️⃣ Create GitHub release (Ubuntu job only)
@@ -58,7 +58,7 @@ jobs:
                   tag_name: "v${{ env.VERSION }}"
                   release_name: "v${{ env.VERSION }}"
                   draft: false
-                  prerelease: ${{ github.ref == 'refs/heads/dev' }} # true si branche dev
+                  prerelease: ${{ github.ref == 'refs/heads/dev' }}
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -66,13 +66,13 @@ jobs:
             - name: Build project
               run: |
                   echo "Building version ${{ env.VERSION }} for ${{ matrix.os }}"
-                  if [ "${{ matrix.os }}" == "windows-latest" ]; then
+                  if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
                     npm run dist:win
                     mv dist/*.exe dist/PhyloriaLauncher-win-${{ env.VERSION }}.exe
-                  elif [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+                  elif [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
                     npm run dist:linux
                     mv dist/*.AppImage dist/PhyloriaLauncher-linux-${{ env.VERSION }}.AppImage
-                  elif [ "${{ matrix.os }}" == "macos-latest" ]; then
+                  elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
                     npm run dist:mac
                     mv dist/*.dmg dist/PhyloriaLauncher-mac-${{ env.VERSION }}.dmg
               shell: bash
