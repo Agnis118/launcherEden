@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
     Popover,
     PopoverContent,
@@ -38,7 +37,7 @@ const ServerSelector: React.FC<ServerSelectorProps> = ({
     return (
         <Popover open={open}>
             <PopoverTrigger asChild>
-                <Button
+                <button
                     className={cn(
                         "flex items-center justify-between px-4 transition-all",
                         showCurrentServer && "w-full"
@@ -58,7 +57,7 @@ const ServerSelector: React.FC<ServerSelectorProps> = ({
                         </span>
                     )}
                     <ArrowDownIcon className="w-6 h-6" />
-                </Button>
+                </button>
             </PopoverTrigger>
 
             <PopoverContent className="w-auto p-0">

@@ -21,8 +21,9 @@
 
 ## Aperçu
 
-![Screenshot 1](https://i.imgur.com/6o7SmH6.png)
-![Screenshot 2](https://i.imgur.com/x3B34n1.png)
+![Screenshot 1](https://i.imgur.com/xikNlTZ.png)
+![Screenshot 2](https://i.imgur.com/gESjh1n.png)
+![Screenshot 3](https://i.imgur.com/0OgwIIf.png)
 
 ---
 
@@ -164,7 +165,65 @@ export default {
 };
 ```
 
----
+## Changer l'URL de distribution.json
+
+Pour modifier l'URL utilisée pour récupérer le fichier `distribution.json`, ouvrez le fichier suivant :
+
+```js
+// chemin : electron/scripts/distromanager.js
+
+export const REMOTE_DISTRO_URL = "http://91.166.194.78:50300/distribution.json";
+```
+
+Remplacez la valeur de `REMOTE_DISTRO_URL` par l'URL souhaitée.  
+Exemple :
+
+```js
+export const REMOTE_DISTRO_URL = "https://votre-nouvelle-url/distribution.json";
+```
+
+Enregistrez le fichier et relancez le launcher pour appliquer la modification.
+
+## Documentation distribution.json
+
+Pour plus de détails sur la structure et la configuration du fichier `distribution.json`, consultez le fichier [`docs/distro.md`](./docs/distro.md).  
+Ce document explique comment personnaliser les serveurs, modpacks et paramètres disponibles dans le launcher.
+
+-   Structure du fichier
+-   Champs obligatoires et optionnels
+-   Exemples d'utilisation
+
+Référez-vous à cette documentation pour adapter le launcher à vos besoins.
+
+## Changer l'AZURE_CLIENT_ID
+
+Pour modifier la valeur de `AZURE_CLIENT_ID`, ouvrez le fichier suivant :
+
+```js
+// chemin : electron/scripts/authmanager.js
+
+export const AZURE_CLIENT_ID = "1ce6e35a-126f-48fd-97fb-54d143ac6d45"; // dd058de7-578c-4da2-9ce7-803142a3274c
+```
+
+Remplacez la valeur de `AZURE_CLIENT_ID` par votre propre identifiant Azure.  
+Exemple :
+
+```js
+export const AZURE_CLIENT_ID = "votre-nouveau-client-id";
+```
+
+Enregistrez le fichier et relancez le launcher pour appliquer la modification.
+
+## Documentation MicrosoftAuth
+
+Pour plus d'informations sur l'intégration et la configuration de l'authentification Microsoft, consultez le fichier [`docs/MicrosoftAuth.md`](./docs/MicrosoftAuth.md).  
+Ce document détaille le processus d'authentification OAuth 2.0, la gestion des tokens, et les étapes nécessaires pour configurer votre propre client Azure.
+
+-   Comment obtenir un `AZURE_CLIENT_ID`
+-   Permissions requises pour l'application Azure
+-   Exemple de configuration et bonnes pratiques
+
+## N'hésitez pas à vous référer à cette documentation pour toute question liée à l'authentification Microsoft.
 
 ## Contribution
 
