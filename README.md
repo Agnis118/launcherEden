@@ -95,13 +95,11 @@ phyloria_launcher/
 
 ## Console
 
-Pour ouvrir la console, utilisez le raccourci suivant :
+Pour activer la console de développement automatiquement, ajoutez la ligne suivante dans le fichier `electron/main.ts` :
 
-```console
-ctrl + shift + i
+```js
+win.webContents.openDevTools();
 ```
-
-Pour exporter la sortie de la console, faites un clic droit et sélectionnez **Save as..**.
 
 ---
 
