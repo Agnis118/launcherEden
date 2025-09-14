@@ -42,13 +42,13 @@ jobs:
                   echo "Building version ${{ env.VERSION }} for ${{ matrix.os }}"
                   if [ "${{ matrix.os }}" == "windows-latest" ]; then
                     npm run dist:win
-                    mv release/${{ env.VERSION }}/*.exe dist/PhyloriaLauncher-win-${{ env.VERSION }}.exe
+                    mv release/${{ env.VERSION }}/*.exe output/bin/PhyloriaLauncher-win-${{ env.VERSION }}.exe
                   elif [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
                     npm run dist:linux
-                    mv release/${{ env.VERSION }}/*.AppImage dist/PhyloriaLauncher-linux-${{ env.VERSION }}.AppImage
+                    mv release/${{ env.VERSION }}/*.AppImage output/bin/PhyloriaLauncher-linux-${{ env.VERSION }}.AppImage
                   elif [ "${{ matrix.os }}" == "macos-latest" ]; then
                     npm run dist:mac
-                    mv release/${{ env.VERSION }}/*.dmg dist/PhyloriaLauncher-mac-${{ env.VERSION }}.dmg
+                    mv release/${{ env.VERSION }}/*.dmg output/bin/PhyloriaLauncher-mac-${{ env.VERSION }}.dmg
                   fi
               shell: bash
               env:
@@ -85,22 +85,22 @@ jobs:
               uses: actions/download-artifact@v4
               with:
                   name: launcher-windows-latest
-                  path: dist/
+                  path: output/bin
             - name: Download Linux artifact
               uses: actions/download-artifact@v4
               with:
                   name: launcher-ubuntu-latest
-                  path: dist/
+                  path: output/bin
             - name: Download Mac artifact
               uses: actions/download-artifact@v4
               with:
                   name: launcher-macos-latest
-                  path: dist/
+                  path: output/bin
 
             - name: Create GitHub release
               uses: softprops/action-gh-release@v2
               with:
                   tag_name: ${{ env.TAG }}
-                  files: dist/*
+                  files: output/bin/*
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
