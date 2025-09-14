@@ -65,17 +65,17 @@ jobs:
         needs: build
         steps:
             - name: Download Windows artifact
-              uses: actions/download-artifact@v3
+              uses: actions/download-artifact@v4
               with:
                   name: launcher-windows-latest
                   path: dist/
             - name: Download Linux artifact
-              uses: actions/download-artifact@v3
+              uses: actions/download-artifact@v4
               with:
                   name: launcher-ubuntu-latest
                   path: dist/
             - name: Download Mac artifact
-              uses: actions/download-artifact@v3
+              uses: actions/download-artifact@v4
               with:
                   name: launcher-macos-latest
                   path: dist/
