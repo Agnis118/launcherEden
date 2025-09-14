@@ -36,6 +36,13 @@ jobs:
                   echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
               shell: bash
 
+            - name: Set up Windows certificate
+              if: matrix.os == 'windows-latest'
+              run: |
+                  echo "${{ secrets.CERT_PFX_B64 }}" | base64 -d > cert.pfx
+                  echo "CERT_PATH=cert.pfx" >> $GITHUB_ENV
+                  echo "CERT_PASS=${{ secrets.CERT_PASS }}" >> $GITHUB_ENV
+
             - name: Build project
               run: |
                   echo "Building version ${{ env.VERSION }} for ${{ matrix.os }}"
