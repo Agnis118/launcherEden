@@ -63,8 +63,7 @@ jobs:
                   release_name: "v${{ env.VERSION }}"
                   draft: false
                   prerelease: ${{ github.ref == 'refs/heads/dev' }}
-              env:
-                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+                  token: ${{ secrets.GH_TOKEN }}
 
             # 7️⃣ Build project selon OS
             - name: Build project
@@ -90,5 +89,4 @@ jobs:
                       dist/*.exe
                       dist/*.AppImage
                       dist/*.dmg
-              env:
-                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+                  token: ${{ secrets.GH_TOKEN }}
