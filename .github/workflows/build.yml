@@ -49,6 +49,7 @@ jobs:
                   elif [ "${{ matrix.os }}" == "macos-latest" ]; then
                     npm run dist:mac
                     mv release/${{ env.VERSION }}/*.dmg dist/PhyloriaLauncher-mac-${{ env.VERSION }}.dmg
+                  fi
               shell: bash
 
             - name: Upload artifact
