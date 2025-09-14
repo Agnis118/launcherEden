@@ -89,7 +89,6 @@ jobs:
 
             # 8️⃣ Upload release asset
             - name: Upload release asset
-              if: matrix.os == 'ubuntu-latest'
               uses: softprops/action-gh-release@v2
               with:
                   tag_name: ${{ env.TAG }}
