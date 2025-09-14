@@ -34,8 +34,10 @@ jobs:
 
             # 4️⃣ Get version from package.json
             - name: Get package version
-              id: vars
-              run: echo "VERSION=$(node -p \"require('./package.json').version\")" >> $GITHUB_ENV
+              run: |
+                  VERSION=$(node -p 'require("./package.json").version')
+                  echo "VERSION=$VERSION" >> $GITHUB_ENV
+              shell: bash
 
             # 5️⃣ Create tag if not exists (Ubuntu job only)
             - name: Create tag if not exists
