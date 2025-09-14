@@ -65,6 +65,7 @@ jobs:
                   prerelease: ${{ github.ref == 'refs/heads/dev' }}
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
             # 7️⃣ Build project selon OS
             - name: Build project
@@ -81,6 +82,8 @@ jobs:
                     mv dist/*.dmg dist/PhyloriaLauncher-mac-${{ env.VERSION }}.dmg
                   fi
               shell: bash
+              env:
+                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
             # 8️⃣ Upload release asset
             - name: Upload release asset
@@ -90,4 +93,5 @@ jobs:
                       dist/*.exe
                       dist/*.AppImage
                       dist/*.dmg
-                  token: ${{ secrets.GH_TOKEN }}
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
