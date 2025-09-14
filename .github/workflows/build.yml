@@ -40,6 +40,7 @@ jobs:
             - name: Build project
               run: |
                   echo "Building version ${{ env.VERSION }} for ${{ matrix.os }}"
+                  mkdir -p output/bin
                   if [ "${{ matrix.os }}" == "windows-latest" ]; then
                     npm run dist:win
                     mv release/${{ env.VERSION }}/*.exe output/bin/PhyloriaLauncher-win-${{ env.VERSION }}.exe
