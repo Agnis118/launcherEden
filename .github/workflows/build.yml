@@ -4,7 +4,7 @@ on:
     push:
         branches:
             - master
-            - dev # pour tester sur la branche dev
+            - dev
 
 jobs:
     build:
@@ -12,64 +12,31 @@ jobs:
         strategy:
             matrix:
                 os: [windows-latest, ubuntu-latest, macos-latest]
-
         timeout-minutes: 60
+        outputs:
+            version: ${{ steps.get_version.outputs.VERSION }}
 
         steps:
-            # 1️⃣ Checkout
             - name: Checkout repository
               uses: actions/checkout@v4
 
-            # 2️⃣ Setup Node.js
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
-                  node-version: 22 # Evite EBADENGINE
+                  node-version: 22
 
-            # 3️⃣ Install dependencies (stable + optional deps pour mac)
             - name: Install dependencies
-              run: |
-                  npm ci --force
+              run: npm ci --force
               shell: bash
 
-            # 4️⃣ Get version from package.json
             - name: Get package version
+              id: get_version
               run: |
                   VERSION=$(node -p 'require("./package.json").version')
                   echo "VERSION=$VERSION" >> $GITHUB_ENV
+                  echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
               shell: bash
 
-            # 5️⃣ Create tag if not exists (Ubuntu job only)
-            - name: Create tag if not exists
-              if: matrix.os == 'ubuntu-latest'
-              run: |
-                  git config user.name "github-actions[bot]"
-                  git config user.email "github-actions[bot]@users.noreply.github.com"
-                  git fetch --tags
-                  TAG="v${{ env.VERSION }}"
-                  if git rev-parse "v${{ env.VERSION }}" >/dev/null 2>&1; then
-                    echo "Tag v${{ env.VERSION }} already exists"
-                  else
-                    git tag -a "v${{ env.VERSION }}" -m "Release ${{ env.VERSION }}"
-                    git push origin "$TAG"
-                  fi
-                  echo "TAG=$TAG" >> $GITHUB_ENV
-
-            # 6️⃣ Create GitHub release (Ubuntu job only)
-            - name: Create release
-              if: matrix.os == 'ubuntu-latest'
-              uses: actions/create-release@v1
-              id: create_release
-              with:
-                  tag_name: "v${{ env.VERSION }}"
-                  release_name: "v${{ env.VERSION }}"
-                  draft: false
-                  prerelease: ${{ github.ref == 'refs/heads/dev' }}
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
-            # 7️⃣ Build project selon OS
             - name: Build project
               run: |
                   echo "Building version ${{ env.VERSION }} for ${{ matrix.os }}"
@@ -82,19 +49,37 @@ jobs:
                   elif [ "${{ matrix.os }}" == "macos-latest" ]; then
                     npm run dist:mac
                     mv release/${{ env.VERSION }}/*.dmg dist/PhyloriaLauncher-mac-${{ env.VERSION }}.dmg
-                  fi
               shell: bash
-              env:
-                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
-            # 8️⃣ Upload release asset
-            - name: Upload release asset
+            - name: Upload artifact
+              uses: actions/upload-artifact@v3
+              with:
+                  name: launcher-${{ matrix.os }}
+                  path: dist/*
+
+    upload_release:
+        runs-on: ubuntu-latest
+        needs: build
+        steps:
+            - name: Download Windows artifact
+              uses: actions/download-artifact@v3
+              with:
+                  name: launcher-windows-latest
+                  path: dist/
+            - name: Download Linux artifact
+              uses: actions/download-artifact@v3
+              with:
+                  name: launcher-ubuntu-latest
+                  path: dist/
+            - name: Download Mac artifact
+              uses: actions/download-artifact@v3
+              with:
+                  name: launcher-macos-latest
+                  path: dist/
+
+            - name: Create GitHub release
               uses: softprops/action-gh-release@v2
               with:
-                  tag_name: ${{ env.TAG }}
-                  files: |
-                      dist/*.exe
-                      dist/*.AppImage
-                      dist/*.dmg
+                  files: dist/*
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
