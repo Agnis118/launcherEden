@@ -46,12 +46,14 @@ jobs:
                   git config user.name "github-actions[bot]"
                   git config user.email "github-actions[bot]@users.noreply.github.com"
                   git fetch --tags
+                  TAG="v${{ env.VERSION }}"
                   if git rev-parse "v${{ env.VERSION }}" >/dev/null 2>&1; then
                     echo "Tag v${{ env.VERSION }} already exists"
                   else
                     git tag -a "v${{ env.VERSION }}" -m "Release ${{ env.VERSION }}"
-                    git push origin "v${{ env.VERSION }}"
+                    git push origin "$TAG"
                   fi
+                  echo "TAG=$TAG" >> $GITHUB_ENV
 
             # 6️⃣ Create GitHub release (Ubuntu job only)
             - name: Create release
@@ -90,6 +92,7 @@ jobs:
               if: matrix.os == 'ubuntu-latest'
               uses: softprops/action-gh-release@v2
               with:
+                  tag_name: ${{ env.TAG }}
                   files: |
                       dist/*.exe
                       dist/*.AppImage
