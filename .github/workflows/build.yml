@@ -45,7 +45,6 @@ jobs:
               run: |
                   git config user.name "github-actions[bot]"
                   git config user.email "github-actions[bot]@users.noreply.github.com"
-                  git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/mathisrto/PhyloriaLauncher.git
                   git fetch --tags
                   if git rev-parse "v${{ env.VERSION }}" >/dev/null 2>&1; then
                     echo "Tag v${{ env.VERSION }} already exists"
@@ -93,3 +92,4 @@ jobs:
                       dist/*.dmg
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
