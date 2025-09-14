@@ -74,7 +74,7 @@ jobs:
                     npm run dist:linux
                     mv dist/*.AppImage dist/PhyloriaLauncher-linux-${{ env.VERSION }}.AppImage
                   elif [ "${{ matrix.os }}" == "macos-latest" ]; then
-                    npm run dist:mac -- --arch x64
+                    npm run dist:mac
                     mv dist/*.dmg dist/PhyloriaLauncher-mac-${{ env.VERSION }}.dmg
                   fi
               shell: bash
