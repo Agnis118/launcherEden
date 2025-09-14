@@ -26,9 +26,10 @@ jobs:
               with:
                   node-version: 22 # Evite EBADENGINE
 
-            # 3️⃣ Install dependencies (plus stable que npm install --force)
+            # 3️⃣ Install dependencies (stable + optional deps pour mac)
             - name: Install dependencies
-              run: npm ci --no-optional --legacy-peer-deps
+              run: |
+                  npm ci --force
               shell: bash
 
             # 4️⃣ Get version from package.json
@@ -73,7 +74,7 @@ jobs:
                     npm run dist:linux
                     mv dist/*.AppImage dist/PhyloriaLauncher-linux-${{ env.VERSION }}.AppImage
                   elif [ "${{ matrix.os }}" == "macos-latest" ]; then
-                    npm run dist:mac
+                    npm run dist:mac -- --arch x64
                     mv dist/*.dmg dist/PhyloriaLauncher-mac-${{ env.VERSION }}.dmg
                   fi
               shell: bash
