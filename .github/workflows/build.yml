@@ -4,7 +4,7 @@ on:
     push:
         branches:
             - master
-            - dev # pour tester sur la branche dev
+            - dev # pour tests
 
 jobs:
     build:
@@ -26,10 +26,9 @@ jobs:
               with:
                   node-version: 22 # Evite EBADENGINE
 
-            # 3️⃣ Install dependencies (stable + optional deps pour mac)
+            # 3️⃣ Install dependencies
             - name: Install dependencies
-              run: |
-                  npm ci --force
+              run: npm ci --force
               shell: bash
 
             # 4️⃣ Get version from package.json
@@ -42,9 +41,12 @@ jobs:
             # 5️⃣ Create tag if not exists (Ubuntu job only)
             - name: Create tag if not exists
               if: matrix.os == 'ubuntu-latest'
+              env:
+                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
               run: |
                   git config user.name "github-actions[bot]"
                   git config user.email "github-actions[bot]@users.noreply.github.com"
+                  git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git
                   git fetch --tags
                   if git rev-parse "v${{ env.VERSION }}" >/dev/null 2>&1; then
                     echo "Tag v${{ env.VERSION }} already exists"
@@ -64,7 +66,7 @@ jobs:
                   draft: false
                   prerelease: ${{ github.ref == 'refs/heads/dev' }}
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
             # 7️⃣ Build project selon OS
             - name: Build project
@@ -77,9 +79,8 @@ jobs:
                     npm run dist:linux
                     mv dist/*.AppImage dist/PhyloriaLauncher-linux-${{ env.VERSION }}.AppImage
                   elif [ "${{ matrix.os }}" == "macos-latest" ]; then
-                    npm run dist:mac
+                    npm run dist:mac -- --arch x64
                     mv dist/*.dmg dist/PhyloriaLauncher-mac-${{ env.VERSION }}.dmg
-                  fi
               shell: bash
 
             # 8️⃣ Upload release asset
@@ -91,5 +92,4 @@ jobs:
                       dist/*.AppImage
                       dist/*.dmg
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   GH_TOKEN: ${{ secrets.GH_TOKEN }}
