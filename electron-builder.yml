@@ -21,8 +21,8 @@ win:
     - target: nsis
       arch:
         - x64
-  certificateFile: ${env.CERT_PATH}
-  certificatePassword: ${env.CERT_PASS}
+  certificateFile: ${{env.CERT_PATH}}
+  certificatePassword: ${{env.CERT_PASS}}
   artifactName: "${productName}-Windows-${version}-Setup.${ext}"
 
 nsis:
@@ -36,4 +36,4 @@ linux:
     - AppImage
   artifactName: "${productName}-Linux-${version}.${ext}"
   category: Game
-  
+
