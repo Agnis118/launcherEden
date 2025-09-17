@@ -1,0 +1,39 @@
+# @see - https://www.electron.build/configuration/configuration
+appId: phyloria_launcher
+asar: true
+productName: PhyloriaLauncher
+icon: src/assets/icon.png
+
+directories:
+  output: release/${version}
+
+files:
+  - dist
+  - dist-electron
+
+mac:
+  target:
+    - dmg
+  artifactName: "${productName}-Mac-${version}-Installer.${ext}"
+
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  certificateFile: ${env.CERT_PATH}
+  certificatePassword: ${env.CERT_PASS}
+  artifactName: "${productName}-Windows-${version}-Setup.${ext}"
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  deleteAppDataOnUninstall: false
+
+linux:
+  target:
+    - AppImage
+  artifactName: "${productName}-Linux-${version}.${ext}"
+  category: Game
+  
