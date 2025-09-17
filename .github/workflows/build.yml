@@ -4,6 +4,7 @@ on:
     push:
         branches:
             - master
+            - dev
 
 jobs:
     build:
@@ -42,6 +43,7 @@ jobs:
                   echo "${{ secrets.CERT_PFX_B64 }}" | base64 -d > cert.pfx
                   echo "CERT_PATH=cert.pfx" >> $GITHUB_ENV
                   echo "CERT_PASS=${{ secrets.CERT_PASS }}" >> $GITHUB_ENV
+              shell: bash
 
             - name: Build project
               run: |
