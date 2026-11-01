@@ -361,6 +361,7 @@ The resolved/provided paths are appended to a base path depending on the module'
 | ---- | ---- |
 | `ForgeHosted` | ({`commonDirectory`}/libraries/{`path` OR resolved}) |
 | `Fabric` | ({`commonDirectory`}/libraries/{`path` OR resolved}) |
+| `NeoForge` | ({`commonDirectory`}/libraries/{`path` OR resolved}) |
 | `LiteLoader` | ({`commonDirectory`}/libraries/{`path` OR resolved}) |
 | `Library` | ({`commonDirectory`}/libraries/{`path` OR resolved}) |
 | `ForgeMod` | ({`commonDirectory`}/modstore/{`path` OR resolved}) |
@@ -476,6 +477,12 @@ Ex.
 ```
 
 Fabric works similarly to Forge 1.13+.
+
+---
+
+### NeoForge
+
+The module type `NeoForge` represents the NeoForge mod loader. It must be declared directly in the server's top-level `modules` array. Declare its required libraries as submodules and include a `VersionManifest` submodule containing the NeoForge version JSON, as with Fabric. The launcher uses that manifest to build the JVM and game arguments. A server distribution containing only `File` modules does not provide the metadata needed to launch NeoForge.
 
 ---
 

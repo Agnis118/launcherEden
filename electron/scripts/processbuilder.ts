@@ -1150,11 +1150,12 @@ export class ProcessBuilder {
         const mdls = this.server.modules;
         let libs: LibraryMap = {};
 
-        // Locate Forge/Fabric/Libraries
+        // Locate Forge/NeoForge/Fabric/Libraries
         for (const mdl of mdls) {
             const type = mdl.rawModule.type;
             if (
                 type === Type.ForgeHosted ||
+                type === Type.NeoForge ||
                 type === Type.Fabric ||
                 type === Type.Library
             ) {

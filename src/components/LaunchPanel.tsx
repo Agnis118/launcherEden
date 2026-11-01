@@ -25,6 +25,12 @@ export default function LaunchPanel() {
         window.ipcRenderer.on(GAME.LAUNCH_DETAILS, (_event, message) =>
             setDetails(message)
         );
+        window.ipcRenderer.on(GAME.LAUNCH_ERROR, (_event, message) => {
+            setLoading(false);
+            setProgress(0);
+            setIsLaunch(false);
+            setDetails(`Erreur de lancement : ${message}`);
+        });
         // Fermeture du jeu
         window.ipcRenderer.on(GAME.CLOSE, () => {
             setLoading(false);
@@ -35,6 +41,7 @@ export default function LaunchPanel() {
         return () => {
             window.ipcRenderer.removeAllListeners(GAME.LAUNCH_PROGRESS);
             window.ipcRenderer.removeAllListeners(GAME.LAUNCH_DETAILS);
+            window.ipcRenderer.removeAllListeners(GAME.LAUNCH_ERROR);
             window.ipcRenderer.removeAllListeners(GAME.CLOSE);
         };
     }, [setIsLaunch]);
