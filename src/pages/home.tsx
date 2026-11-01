@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import PhyloriaLogo from "@/src/assets/icon.png";
+import PhyloriaLogo from "@/src/assets/Boussole.png";
 import LaunchPanel from "@/src/components/LaunchPanel";
 import ServerSelector from "@/src/components/ServerSelector";
 import { useGame } from "@/src/context/GameContextObject";
@@ -13,7 +13,7 @@ const Home: React.FC = () => {
         <div className="relative flex flex-col items-center justify-center h-screen text-primary">
             <Parameters />
             <img src={PhyloriaLogo} alt="Phyloria Logo" className="mb-6 w-32" />
-            <h1 className="text-4xl font-bold mb-16">Phyloria Launcher</h1>
+            <h1 className="text-4xl font-bold mb-16">La boussole des mondes</h1>
             <div className="relative w-full max-w-md">
                 <div
                     className={cn(

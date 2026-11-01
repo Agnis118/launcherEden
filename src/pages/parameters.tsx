@@ -84,7 +84,7 @@ export default function Parameters() {
 
                         <div className="absolute bottom-0 left-0 right-0 p-4 border-t bg-muted/10">
                             <p className="text-center text-xs text-muted-foreground">
-                                Phyloria Launcher v1.0
+                                Boussole Launcher v1.0
                             </p>
                         </div>
                     </div>
