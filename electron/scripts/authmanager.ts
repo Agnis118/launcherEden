@@ -154,14 +154,13 @@ async function executeWithRateLimit<T>(
         updateRateLimit(false); // Success
         return result;
     } catch (error) {
-        updateRateLimit(true); // Error
-
         // Check if it's a rate limiting error
         const errorStr = String(error);
         if (
             errorStr.includes("429") ||
             errorStr.toLowerCase().includes("too many requests")
         ) {
+            updateRateLimit(true);
             console.error(`Rate limit error in ${operationName}:`, error);
             throw new Error(
                 `RATE_LIMITED:${Math.ceil(getBackoffTime() / 1000)}`
