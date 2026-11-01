@@ -195,16 +195,9 @@ ipcMain.handle(
 
             msftAuthWindow.webContents.on("did-navigate", (_, uri: string) => {
                 if (uri.startsWith(REDIRECT_URI_PREFIX)) {
-                    const queries = uri
-                        .substring(REDIRECT_URI_PREFIX.length)
-                        .split("#", 1)
-                        .toString()
-                        .split("&");
                     const queryMap: Record<string, string> = {};
-
-                    queries.forEach((query) => {
-                        const [name, value] = query.split("=");
-                        queryMap[name] = decodeURI(value);
+                    new URL(uri).searchParams.forEach((value, name) => {
+                        queryMap[name] = value;
                     });
 
                     msftAuthSuccess = true;
@@ -293,7 +286,13 @@ ipcMain.on(GAME.LAUNCH, async () => {
             },
         });
     } catch (err) {
-        throw new Error("Error launching game: " + (err as Error).message);
+        console.error("Error launching game:", err);
+        const errorMessage =
+            err instanceof Error ? err.message : String(err);
+        BrowserWindow.getFocusedWindow()?.webContents.send(
+            GAME.LAUNCH_ERROR,
+            errorMessage
+        );
     }
 });
 
