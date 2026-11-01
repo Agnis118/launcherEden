@@ -111,7 +111,7 @@ interface LibraryMap {
 }
 
 /**
- * Only forge and fabric are top level mod loaders.
+ * Forge, NeoForge, and Fabric are top-level mod loaders.
  *
  * Forge 1.13+ launch logic is similar to fabrics, for now using usingFabricLoader flag to
  * change minor details when needed.
@@ -810,9 +810,9 @@ export class ProcessBuilder {
         // Forge Specific Arguments
         args = args.concat(this.modManifest.arguments?.game || []);
 
-        // Filter null values
+        // Filter null and empty arguments (disallowed rule arguments are replaced with "").
         const filteredArgs = args.filter((arg): arg is string | number => {
-            return arg != null;
+            return arg != null && arg !== "";
         });
 
         return filteredArgs.map((arg) => arg.toString());
@@ -1148,6 +1148,9 @@ export class ProcessBuilder {
      */
     private _resolveServerLibraries(mods: PhyloriaModule[]): LibraryMap {
         const mdls = this.server.modules;
+        const usingNeoForgeLoader =
+            this.modManifest.arguments?.game.includes("--fml.neoForgeVersion") ??
+            false;
         let libs: LibraryMap = {};
 
         // Locate Forge/NeoForge/Fabric/Libraries
@@ -1159,7 +1162,14 @@ export class ProcessBuilder {
                 type === Type.Fabric ||
                 type === Type.Library
             ) {
-                libs[mdl.getVersionlessMavenIdentifier()] = mdl.getPath();
+                // NeoForge discovers its universal JAR from libraryDirectory; adding it to
+                // the classpath makes FML skip it as an already-located system mod.
+                if (
+                    type !== Type.NeoForge &&
+                    !(usingNeoForgeLoader && type === Type.ForgeHosted)
+                ) {
+                    libs[mdl.getVersionlessMavenIdentifier()] = mdl.getPath();
+                }
                 if (mdl.subModules.length > 0) {
                     const res = this._resolveModuleLibraries(mdl);
                     libs = { ...libs, ...res };

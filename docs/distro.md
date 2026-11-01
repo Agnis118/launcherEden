@@ -482,7 +482,9 @@ Fabric works similarly to Forge 1.13+.
 
 ### NeoForge
 
-The module type `NeoForge` represents the NeoForge mod loader. It must be declared directly in the server's top-level `modules` array. Declare its required libraries as submodules and include a `VersionManifest` submodule containing the NeoForge version JSON, as with Fabric. The launcher uses that manifest to build the JVM and game arguments. A server distribution containing only `File` modules does not provide the metadata needed to launch NeoForge.
+The NeoForge loader artifact must be declared directly in the server's top-level `modules` array, with its required libraries as submodules and a `VersionManifest` submodule containing the NeoForge version JSON, as with Fabric. It may use the `NeoForge` module type or `ForgeHosted` for compatibility with existing generators. The launcher uses the manifest's NeoForge arguments to build the launch command. A server distribution containing only `File` modules does not provide the metadata needed to launch NeoForge.
+
+The top-level NeoForge universal artifact must be stored under the shared libraries directory but discovered by NeoForge itself; it must not be added to the JVM classpath.
 
 ---
 
